@@ -18,6 +18,10 @@ class Question
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\ManyToOne(inversedBy: 'questions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
     #[ORM\Column(length: 255)]
     private ?string $text = null;
 
@@ -27,8 +31,11 @@ class Question
     #[ORM\OneToMany(targetEntity: Answer::class, mappedBy: 'question', orphanRemoval: true)]
     private Collection $answers;
 
-    #[ORM\Column]
-    private ?bool $isRestricted = null;
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Answer $restrictedByAnswer = null;
+
+    #[ORM\Column(name: "`order`")]
+    private ?int $order = null;
 
     public function __construct()
     {
@@ -38,6 +45,18 @@ class Question
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
     }
 
     public function getText(): ?string
@@ -82,14 +101,26 @@ class Question
         return $this;
     }
 
-    public function isRestricted(): ?bool
+    public function getRestrictedByAnswer(): ?Answer
     {
-        return $this->isRestricted;
+        return $this->restrictedByAnswer;
     }
 
-    public function setRestricted(bool $isRestricted): static
+    public function setRestrictedByAnswer(?Answer $restrictedByAnswer): static
     {
-        $this->isRestricted = $isRestricted;
+        $this->restrictedByAnswer = $restrictedByAnswer;
+
+        return $this;
+    }
+
+    public function getOrder(): ?int
+    {
+        return $this->order;
+    }
+
+    public function setOrder(int $order): static
+    {
+        $this->order = $order;
 
         return $this;
     }

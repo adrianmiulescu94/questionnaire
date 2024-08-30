@@ -23,9 +23,6 @@ class Answer
     #[ORM\Column(length: 255)]
     private ?string $text = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Question $displayRestrictedQuestion = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -51,18 +48,6 @@ class Answer
     public function setText(string $text): static
     {
         $this->text = $text;
-
-        return $this;
-    }
-
-    public function getDisplayRestrictedQuestion(): ?Question
-    {
-        return $this->displayRestrictedQuestion;
-    }
-
-    public function setDisplayRestrictedQuestion(?Question $displayRestrictedQuestion): static
-    {
-        $this->displayRestrictedQuestion = $displayRestrictedQuestion;
 
         return $this;
     }
