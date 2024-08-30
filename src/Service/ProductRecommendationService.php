@@ -6,7 +6,7 @@ use App\Entity\Answer;
 use App\Entity\Product;
 use Doctrine\Common\Collections\Collection;
 
-final class ProductRecommendationService
+final readonly class ProductRecommendationService
 {
     public function recommendProducts(Collection $answers): array
     {

@@ -41,6 +41,13 @@ class Answer
         return $this->id;
     }
 
+    public function setId(int $id): static
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getQuestion(): ?Question
     {
         return $this->question;
