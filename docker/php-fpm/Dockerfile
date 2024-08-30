@@ -14,7 +14,6 @@ RUN install-php-extensions ldap \
 COPY ./conf.d/docker-php-ext-xdebug.ini $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini.default
 COPY ./conf.d/docker-php-ext-opcache.ini $PHP_INI_DIR/conf.d/docker-php-ext-opcache.ini
 COPY ./conf.d/docker-php-dev-config.ini $PHP_INI_DIR/conf.d/docker-php-dev-config.ini
-COPY ./conf.d/php-optional.ini $PHP_INI_DIR/conf.d/php-optional.ini
 
 RUN if [ "$USE_XDEBUG" == 1 ]; then \
         install-php-extensions xdebug; \
