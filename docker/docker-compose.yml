@@ -1,0 +1,40 @@
+services:
+    database:
+        container_name: ${COMPOSE_PROJECT_NAME}_database
+        image: mariadb:11.5
+        ports:
+            - ${DB_PORT}:3306
+        environment:
+            MARIADB_DATABASE: ${DB_NAME}
+            MARIADB_USER: ${DB_USER}
+            MARIADB_PASSWORD: ${DB_PASS}
+            MARIADB_ROOT_PASSWORD: root
+        volumes:
+            - ./database/data:/var/lib/mysql
+
+    php_fpm:
+        container_name: ${COMPOSE_PROJECT_NAME}_php_fpm
+        build:
+            context: ./php-fpm
+            args:
+                USE_XDEBUG: ${USE_XDEBUG}
+        depends_on:
+            - database
+        volumes:
+            - ../:/var/www
+            - /var/www/docker/database/data
+
+    nginx:
+        container_name: ${COMPOSE_PROJECT_NAME}_nginx
+        build: ./nginx
+        ports:
+            - ${NGINX_PORT}:80
+            - ${NGINX_PORT_HTTPS}:443
+        depends_on:
+            - php_fpm
+        volumes:
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./nginx/sites/:/etc/nginx/sites-available
+            - ./nginx/conf.d/:/etc/nginx/conf.d
+            - ../:/var/www
+            - /var/www/docker/database/data
