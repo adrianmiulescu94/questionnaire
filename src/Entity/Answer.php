@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ApiResource]
 class Answer
 {
-    public const array EXCLUDE_ALL_PRODUCTS_ANSWERS_IDS = [
+    public const array EXCLUDE_ALL_PRODUCTS_ANSWER_IDS = [
         2,
         8,
         9,

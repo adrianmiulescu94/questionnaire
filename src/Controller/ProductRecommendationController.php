@@ -17,7 +17,7 @@ final class ProductRecommendationController extends AbstractController
     public function __invoke(Response $response): JsonResponse
     {
         return $this->json([
-            $this->productRecommendationService->recommendProductsBasedOnAnswers($response->getAnswers()),
+            $this->productRecommendationService->recommendProducts($response->getAnswers()),
         ], SymfonyResponse::HTTP_CREATED);
     }
 }
