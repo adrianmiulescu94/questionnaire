@@ -120,7 +120,11 @@ class QuestionnaireFixtures extends Fixture
 
             $manager->persist($q);
 
-            foreach ($answers as $answer) {
+            foreach ($answers as $key => $answer) {
+                if ($key === 'conditionalAnswer') {
+                    continue;
+                }
+
                 $a = (new Answer())
                     ->setText($answer)
                     ->setQuestion($q)

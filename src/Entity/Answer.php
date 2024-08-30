@@ -11,6 +11,19 @@ use Doctrine\ORM\Mapping as ORM;
 #[ApiResource]
 class Answer
 {
+    public const array EXCLUDE_ALL_PRODUCTS_ANSWERS_IDS = [
+        2,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        16,
+        17,
+    ];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
